@@ -2,19 +2,14 @@ services:
   - type: web
     name: mountebank
     env: docker
-    dockerfilePath: ./Dockerfile # You'll need to create a Dockerfile
+    dockerfilePath: ./Dockerfile
     dockerContext: .
     healthCheckPath: /imposters
     envVars:
       - key: MB_BIND_ADDR
         value: 0.0.0.0
+      - key: PORT # Añade esta variable de entorno
+        value: 10000
     ports:
-      - port: 2525
-        protocol: tcp
-      - port: 8080
+      - port: 10000 # Puerto principal
         protocol: http
-      - port: 3000
-        protocol: http
-    disk:
-      mountPath: /imposters
-      name: mountebank-imposters
