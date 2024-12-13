@@ -1,0 +1,55 @@
+
+      {
+        "port": 8080,
+        "protocol": "http",
+        "name": "servicio-usuarios",
+        "stubs": [
+          {
+            "predicates": [
+              {
+                "equals": {
+                  "method": "GET",
+                  "path": "/api/users"
+                }
+              }
+            ],
+            "responses": [
+              {
+                "is": {
+                  "statusCode": 200,
+                  "body": {
+                    "usuarios": ["Juan", "María"]
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "port": 8081,
+        "protocol": "http",
+        "name": "servicio-productos",
+        "stubs": [
+          {
+            "predicates": [
+              {
+                "equals": {
+                  "method": "GET",
+                  "path": "/api/products"
+                }
+              }
+            ],
+            "responses": [
+              {
+                "is": {
+                  "statusCode": 200,
+                  "body": {
+                    "productos": ["Laptop", "Mouse"]
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }

@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  mountebank:
+    image: bbyars/mountebank:latest
+    ports:
+      - "2525:2525" # Puerto de administración de Mountebank
+      - "8080:8080" # Puerto para tu primer impostor
+      - "3000:3000" # Puerto para tu segundo impostor
+    volumes:
+      - ./imposters:/imposters # Monta tus configuraciones de impostores localmente
+    entrypoint: ["mb"]
+    command:
+      ["start", "--configfile", "/imposters/index.ejs", "--allowInjection"]
+    environment:
+      - MB_BIND_ADDR=0.0.0.0
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:2525/imposters"]
+      interval: 30s
+      timeout: 10s
+      retries: 3

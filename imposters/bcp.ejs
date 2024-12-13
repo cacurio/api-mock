@@ -1,0 +1,246 @@
+{
+        "port": 3000,
+        "protocol": "http",
+        "name": "Payment API Mock",
+        "stubs": [
+          {
+            "predicates": [
+              {
+                "equals": {
+                  "method": "POST",
+                  "path": "/cas/oidc/accessToken",
+                  "query": {
+                    "grant_type": "client_credentials",
+                    "client_id": "3f19f2d3-437b-4b08-8358-045322f7b1a5",
+                    "scope": "payments"
+                  }
+                }
+              }
+            ],
+            "responses": [
+              {
+                "is": {
+                  "statusCode": 200,
+                  "headers": {
+                    "Content-Type": "application/json"
+                  },
+                  "body": {
+                    "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsIm9yZy5hcGVyZW8...",
+                    "id_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsa2lkIjoiT0F1dGhDbGll...",
+                    "refresh_token": "RT-21162-snAQdYdSQ-FsenTA2y-bkrEQEhyPVmpC",
+                    "token_type": "bearer",
+                    "expires_in": 2400,
+                    "scope": "payments ciam"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "predicates": [
+              {
+                "equals": {
+                  "method": "POST",
+                  "path": "/payment-initiation/v1/domestic-payment-consents"
+                }
+              }
+            ],
+            "responses": [
+              {
+                "is": {
+                  "statusCode": 201,
+                  "headers": {
+                    "Content-Type": "application/json",
+                    "request-id": "550e8400-e29b-41d4-a716-446655440000",
+                    "api-version": "1.0.0"
+                  },
+                  "body": {
+                    "Data": {
+                      "ConsentId": "cd6f4476-9645-41xz-b66a-c2e57860763d",
+                      "CreationDateTime": "2024-12-21T06:07:00.176Z",
+                      "Status": "AwaitingAuthorisation",
+                      "StatusUpdateDateTime": "2024-12-21T06:07:00.176Z",
+                      "Initiation": {
+                        "InstructionIdentification": "${request.body.Data.Initiation.InstructionIdentification}",
+                        "EndToEndIdentification": "${request.body.Data.Initiation.EndToEndIdentification}",
+                        "InstructedAmount": {
+                          "Amount": "${request.body.Data.Initiation.InstructedAmount.Amount}",
+                          "Currency": "${request.body.Data.Initiation.InstructedAmount.Currency}"
+                        },
+                        "DebtorAccount": {
+                          "SchemeName": "PE.BCP.LocalAccountNumber",
+                          "Identification": "191*****870**",
+                          "Name": "string"
+                        },
+                        "CreditorAccount": {
+                          "SchemeName": "PE.BCP.LocalAccountNumber",
+                          "Identification": "191*****880**",
+                          "Name": "st****"
+                        }
+                      }
+                    },
+                    "Links": {
+                      "Self": "https://openbanking.apisbcp.com/payment-initiation/v1/domestic-payment-consents/cd6f4476-9645-41xz-b66a-c2e57860763d"
+                    },
+                    "Meta": {
+                      "TotalPages": 1
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "predicates": [
+              {
+                "equals": {
+                  "method": "GET",
+                  "path": "/payment-initiation/v1/domestic-payment-consents/cd6f4476-9645-41xz-b66a-c2e57860763d"
+                }
+              }
+            ],
+            "responses": [
+              {
+                "is": {
+                  "statusCode": 200,
+                  "headers": {
+                    "Content-Type": "application/json",
+                    "request-id": "550e8400-e29b-41d4-a716-446655440000",
+                    "api-version": "1.0.0"
+                  },
+                  "body": {
+                    "Data": {
+                      "ConsentId": "cd6f4476-9645-41xz-b66a-c2e57860763d",
+                      "CreationDateTime": "2024-12-21T06:07:00.176Z",
+                      "Status": "Authorised",
+                      "StatusUpdateDateTime": "2024-12-21T06:07:00.176Z",
+                      "Initiation": {
+                        "InstructionIdentification": "EXAMPLE-ID",
+                        "EndToEndIdentification": "EXAMPLE-END-TO-END",
+                        "InstructedAmount": {
+                          "Amount": "100.00",
+                          "Currency": "PEN"
+                        },
+                        "DebtorAccount": {
+                          "SchemeName": "PE.BCP.LocalAccountNumber",
+                          "Identification": "191*****870**",
+                          "Name": "string"
+                        },
+                        "CreditorAccount": {
+                          "SchemeName": "PE.BCP.LocalAccountNumber",
+                          "Identification": "191*****880**",
+                          "Name": "st****"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "predicates": [
+              {
+                "equals": {
+                  "method": "POST",
+                  "path": "/payment-initiation/v1/domestic-payments"
+                }
+              }
+            ],
+            "responses": [
+              {
+                "is": {
+                  "statusCode": 201,
+                  "headers": {
+                    "Content-Type": "application/json",
+                    "request-id": "550e8400-e29b-41d4-a716-446655440000",
+                    "api-version": "1.0.0"
+                  },
+                  "body": {
+                    "Data": {
+                      "DomesticPaymentId": "OX-20230718105142-02000086",
+                      "ConsentId": "${request.body.Data.ConsentId}",
+                      "CreationDateTime": "2024-12-21T16:53:31.033Z",
+                      "Status": "AcceptedSettlementCompleted",
+                      "StatusUpdateDateTime": "2024-12-21T16:53:31.033Z",
+                      "Initiation": {
+                        "InstructionIdentification": "${request.body.Data.Initiation.InstructionIdentification}",
+                        "EndToEndIdentification": "${request.body.Data.Initiation.EndToEndIdentification}",
+                        "InstructedAmount": {
+                          "Amount": "${request.body.Data.Initiation.InstructedAmount.Amount}",
+                          "Currency": "${request.body.Data.Initiation.InstructedAmount.Currency}"
+                        },
+                        "DebtorAccount": {
+                          "SchemeName": "PE.BCP.LocalAccountNumber",
+                          "Identification": "191*****870**",
+                          "Name": "string"
+                        },
+                        "CreditorAccount": {
+                          "SchemeName": "PE.BCP.LocalAccountNumber",
+                          "Identification": "191*****880**",
+                          "Name": "st****"
+                        }
+                      }
+                    },
+                    "Links": {
+                      "Self": "https://openbanking.apisbcp.com/payment-initiation/v1/domestic-payments/OX-20230718105142-02000086"
+                    },
+                    "Meta": {
+                      "TotalPages": 1
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "predicates": [
+              {
+                "equals": {
+                  "method": "GET",
+                  "path": "/payment-initiation/v1/domestic-payments/OX-20230718105142-02000086"
+                }
+              }
+            ],
+            "responses": [
+              {
+                "is": {
+                  "statusCode": 200,
+                  "headers": {
+                    "Content-Type": "application/json",
+                    "request-id": "550e8400-e29b-41d4-a716-446655440000",
+                    "api-version": "1.0.0"
+                  },
+                  "body": {
+                    "Data": {
+                      "DomesticPaymentId": "OX-20230718105142-02000086",
+                      "ConsentId": "cd6f4476-9645-41xz-b66a-c2e57860763d",
+                      "CreationDateTime": "2024-12-21T21:02:28.758Z",
+                      "Status": "AcceptedSettlementCompleted",
+                      "StatusUpdateDateTime": "2024-12-21T21:02:28.759Z",
+                      "Initiation": {
+                        "InstructionIdentification": "EXAMPLE-ID",
+                        "EndToEndIdentification": "EXAMPLE-END-TO-END",
+                        "InstructedAmount": {
+                          "Amount": "100.00",
+                          "Currency": "PEN"
+                        },
+                        "DebtorAccount": {
+                          "SchemeName": "PE.BCP.LocalAccountNumber",
+                          "Identification": "191*****870**",
+                          "Name": "string"
+                        },
+                        "CreditorAccount": {
+                          "SchemeName": "PE.BCP.LocalAccountNumber",
+                          "Identification": "191*****880**",
+                          "Name": "st****"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
